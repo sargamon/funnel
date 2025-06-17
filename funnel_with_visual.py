@@ -131,4 +131,4 @@ if uploaded_file:
         draw_funnel(stages, counts, title=program)
     
 
-    draw_funnel(stages, total_counts)
+ #   draw_funnel(stages, total_counts)
