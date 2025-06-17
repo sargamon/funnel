@@ -6,6 +6,45 @@ import matplotlib.patches as patches
 st.set_page_config(layout="wide")
 st.title("Funnel Visualizer")
 
+def draw_funnel(stage_names, counts):
+    fig, ax = plt.subplots(figsize=(10, 6))
+    ax.axis('off')
+
+    n = len(counts)
+    max_width = 8
+    min_width = 2
+    height = 1
+    spacing = 0.2
+
+    for i in range(n):
+        top_width = max_width - (i * (max_width - min_width) / max(n-1, 1))
+        bottom_width = max_width - ((i + 1) * (max_width - min_width) / max(n-1, 1)) if i < n - 1 else min_width
+
+        x_top_left = (10 - top_width) / 2
+        x_bottom_left = (10 - bottom_width) / 2
+        y = -i * (height + spacing)
+
+        polygon = patches.Polygon([
+            (x_top_left, y),
+            (x_top_left + top_width, y),
+            (x_bottom_left + bottom_width, y - height),
+            (x_bottom_left, y - height)
+        ], closed=True, facecolor='skyblue', edgecolor='black')
+
+        ax.add_patch(polygon)
+
+        ax.text(5, y - height / 2, f"{stage_names[i]}: {counts[i]:,}", 
+                ha='center', va='center', fontsize=10, weight='bold')
+
+        if i > 0 and counts[i-1] > 0:
+            conv = counts[i] / counts[i-1] * 100
+            ax.text(5, y + spacing / 2, f"{conv:.1f}%", ha='center', va='bottom', fontsize=9, color='gray')
+
+    plt.ylim(-n * (height + spacing), spacing)
+    plt.xlim(0, 10)
+    plt.tight_layout()
+    st.pyplot(fig)
+
 # Upload Excel file
 uploaded_file = st.file_uploader("Upload your Excel file", type=["xlsx"])
 if uploaded_file:
@@ -71,48 +110,3 @@ if uploaded_file:
     draw_funnel(stages, total_counts)
     
 
-
-
-
-def draw_funnel(stage_names, counts):
-    fig, ax = plt.subplots(figsize=(10, 6))
-    ax.axis('off')
-
-    n = len(counts)
-    max_width = 8
-    min_width = 2
-    height = 1
-    spacing = 0.2
-
-    for i in range(n):
-        top_width = max_width - (i * (max_width - min_width) / max(n-1, 1))
-        bottom_width = max_width - ((i + 1) * (max_width - min_width) / max(n-1, 1)) if i < n - 1 else min_width
-
-        x_top_left = (10 - top_width) / 2
-        x_bottom_left = (10 - bottom_width) / 2
-        y = -i * (height + spacing)
-
-        polygon = patches.Polygon([
-            (x_top_left, y),
-            (x_top_left + top_width, y),
-            (x_bottom_left + bottom_width, y - height),
-            (x_bottom_left, y - height)
-        ], closed=True, facecolor='skyblue', edgecolor='black')
-
-        ax.add_patch(polygon)
-
-        ax.text(5, y - height / 2, f"{stage_names[i]}: {counts[i]:,}", 
-                ha='center', va='center', fontsize=10, weight='bold')
-
-        if i > 0 and counts[i-1] > 0:
-            conv = counts[i] / counts[i-1] * 100
-            ax.text(5, y + spacing / 2, f"{conv:.1f}%", ha='center', va='bottom', fontsize=9, color='gray')
-
-    plt.ylim(-n * (height + spacing), spacing)
-    plt.xlim(0, 10)
-    plt.tight_layout()
-    st.pyplot(fig)
-
-# After computing inclusive_df
-    total_counts = [inclusive_df[stage].sum() if stage in inclusive_df.columns else 0 for stage in stages]
-    draw_funnel(stages, total_counts)
