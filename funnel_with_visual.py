@@ -2,7 +2,17 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
+import matplotlib.cm as cm
+import matplotlib.colors as mcolors
 
+def rainbow_color(x):
+    """
+    Returns an RGB color between red (x=0) and violet (x=1).
+    x must be a float between 0 and 1.
+    """
+    x = max(0, min(1, x))  # Clamp to [0, 1]
+    return cm.rainbow(x)   # Returns RGBA tuple
+    
 def draw_funnel(stage_names, counts, title="Funnel"):
     fig, ax = plt.subplots(figsize=(10, 6))
     ax.axis('off')
@@ -31,7 +41,7 @@ def draw_funnel(stage_names, counts, title="Funnel"):
             (x_top_left + top_width, y),
             (x_bottom_left + bottom_width, y - height),
             (x_bottom_left, y - height)
-        ], closed=True, facecolor='skyblue', edgecolor='black')
+        ], closed=True, facecolor=rainbow_color(i/n), edgecolor='black')
 
         ax.add_patch(polygon)
 
