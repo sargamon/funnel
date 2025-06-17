@@ -103,10 +103,11 @@ if uploaded_file:
     st.subheader("Funnel Visualizations")
 
 # After computing inclusive_df
-    
-    total_counts = [inclusive_df[stage].sum() if stage in inclusive_df.columns else 0 for stage in stages]
-    draw_funnel(stages, total_counts)
+    for program in inclusive_df.index:    
+        data = inclusive_df.loc[program, stages]
+        total_counts = [data[stage].sum() if stage in data.columns else 0 for stage in stages]
+        draw_funnel(stages, total_counts)
 
-    draw_funnel(stages, total_counts)
+
     
 
