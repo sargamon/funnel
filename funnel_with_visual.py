@@ -3,9 +3,6 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.patches as patches
 
-st.set_page_config(layout="wide")
-st.title("Funnel Visualizer")
-
 def draw_funnel(stage_names, counts):
     fig, ax = plt.subplots(figsize=(10, 6))
     ax.axis('off')
@@ -43,7 +40,10 @@ def draw_funnel(stage_names, counts):
     plt.ylim(-n * (height + spacing), spacing)
     plt.xlim(0, 10)
     plt.tight_layout()
-    st.pyplot(fig)
+
+    
+st.set_page_config(layout="wide")
+st.title("Funnel Visualizer")
 
 # Upload Excel file
 uploaded_file = st.file_uploader("Upload your Excel file", type=["xlsx"])
@@ -102,12 +102,32 @@ if uploaded_file:
 
     st.subheader("Funnel Visualizations")
 
-# After computing inclusive_df
-    for program in inclusive_df.index:    
-        data = inclusive_df.loc[program, stages]
-        total_counts = [data[stage].sum() if stage in data.columns else 0 for stage in stages]
-        draw_funnel(stages, total_counts)
+    # for program in inclusive_df.index:
+    #     data = inclusive_df.loc[program, stages]
+    #     retention = (data / data.shift(1)).fillna(1) * 100
+    #     retention_labels = retention.round(1).astype(str) + '%'
 
-
+    #     fig, ax = plt.subplots(figsize=(10, 5))
+    #     bars = ax.bar(stages, data)
+    #     for i, (bar, val, pct) in enumerate(zip(bars, data, retention_labels)):
+    #         label = f"{int(val)}"
+    #         if i > 0:
+    #             label += f"\n({pct})"
+    #         ax.text(bar.get_x() + bar.get_width() / 2, bar.get_height() + 1,
+    #                 label, ha='center', fontsize=8)
+    #     ax.set_title(f"Program: {program}")
+    #     ax.set_ylabel("Leads")
+    #     ax.set_xticks(range(len(stages)))
+    #     ax.set_xticklabels(stages, rotation=45, ha='right')
+        
     
 
+# After computing inclusive_df
+    
+    
+    for program in inclusive_df.index:
+        counts = [inclusive_df.loc[program, stage] if stage in inclusive_df.columns else 0 for stage in stages]
+        draw_funnel(stages, counts, title=program)
+    
+
+    draw_funnel(stages, total_counts)
