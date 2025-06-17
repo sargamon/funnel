@@ -41,6 +41,7 @@ def draw_funnel(stage_names, counts, title="Funnel"):
     plt.ylim(-n * (height + spacing), spacing)
     plt.xlim(0, 10)
     plt.tight_layout()
+
     st.pyplot(fig)
     
 st.set_page_config(layout="wide")
