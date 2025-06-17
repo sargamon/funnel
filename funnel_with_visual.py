@@ -6,7 +6,7 @@ import matplotlib.patches as patches
 def draw_funnel(stage_names, counts, title="Funnel"):
     fig, ax = plt.subplots(figsize=(10, 6))
     ax.axis('off')
-    ax.title = title
+    ax.set_title(title)
 
     n = len(counts)
     max_width = 8
