@@ -36,7 +36,7 @@ def draw_funnel(stage_names, counts, title="Funnel"):
 
         if i > 0 and counts[i-1] > 0:
             conv = counts[i] / counts[i-1] * 100
-            ax.text(5, y + spacing / 2, f"{conv:.1f}%", ha='center', va='bottom', fontsize=10, , weight='bold', color='red')
+            ax.text(5, y + spacing / 2, f"{conv:.1f}%", ha='center', va='bottom', fontsize=10, weight='bold', color='red')
 
     plt.ylim(-n * (height + spacing), spacing)
     plt.xlim(0, 10)
