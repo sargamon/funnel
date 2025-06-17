@@ -14,9 +14,13 @@ def draw_funnel(stage_names, counts, title="Funnel"):
     height = 1
     spacing = 0.2
 
+    max_count = max(counts)
+
     for i in range(n):
-        top_width = max_width - (i * (max_width - min_width) / max(n-1, 1))
-        bottom_width = max_width - ((i + 1) * (max_width - min_width) / max(n-1, 1)) if i < n - 1 else min_width
+        count = counts[i]
+        percent_of_max = count/max_count
+        top_width = percent_of_max*(max_width - (i * (max_width - min_width) / max(n-1, 1)))
+        bottom_width = percent_of_max*(max_width - ((i + 1) * (max_width - min_width) / max(n-1, 1)) if i < n - 1 else min_width)
 
         x_top_left = (10 - top_width) / 2
         x_bottom_left = (10 - bottom_width) / 2
