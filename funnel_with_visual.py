@@ -5,6 +5,7 @@ import matplotlib.patches as patches
 import matplotlib.cm as cm
 import matplotlib.colors as mcolors
 from sharepoint_loader import load_datafile
+from sharepoint_loader import load_the_datafile
 
 def rainbow_color(x):
     """
