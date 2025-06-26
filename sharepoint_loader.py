@@ -54,14 +54,11 @@ def load_datafile(site_url: str,
     )
     return pivot_df
 
-
-if __name__ == "__main__":
-    import os
-    # Example: set these environment variables before running
-    SITE_URL      = os.getenv("SP_SITE_URL")
-    RELATIVE_URL  = os.getenv("SP_RELATIVE_URL")
-    CLIENT_ID     = os.getenv("AZURE_CLIENT_ID")
-    CLIENT_SECRET = os.getenv("AZURE_CLIENT_SECRET")
+def load_the_datafile():
+    global SITE_URL      = os.getenv("SP_SITE_URL")
+    global RELATIVE_URL  = os.getenv("SP_RELATIVE_URL")
+    global CLIENT_ID     = os.getenv("AZURE_CLIENT_ID")
+    global CLIENT_SECRET = os.getenv("AZURE_CLIENT_SECRET")
 
     missing = [name for name, val in {
         "SP_SITE_URL": SITE_URL,
@@ -72,7 +69,9 @@ if __name__ == "__main__":
     if missing:
         print(f"Missing environment vars: {', '.join(missing)}")
         exit(1)
+    return load_datafile(SITE_URL, RELATIVE_URL, CLIENT_ID, CLIENT_SECRET)
+    
 
-    # Load and print pivot
-    pivot = load_datafile(SITE_URL, RELATIVE_URL, CLIENT_ID, CLIENT_SECRET)
-    print(pivot)
+if __name__ == "__main__":
+    import os
+    load_the_datafile()
