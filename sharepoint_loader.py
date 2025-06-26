@@ -7,6 +7,7 @@ Requirements:
     pip install pandas office365-rest-python-client
 '''  
 import io
+import os
 import pandas as pd
 from office365.runtime.auth.client_credential import ClientCredential
 from office365.sharepoint.client_context import ClientContext
