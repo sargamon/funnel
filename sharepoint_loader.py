@@ -54,7 +54,7 @@ def load_datafile(site_url: str,
     )
     return pivot_df
 
-def load_the_datafile():
+def load_the_datafile() -> pd.DataFrame:
     global SITE_URL      = os.getenv("SP_SITE_URL")
     global RELATIVE_URL  = os.getenv("SP_RELATIVE_URL")
     global CLIENT_ID     = os.getenv("AZURE_CLIENT_ID")
