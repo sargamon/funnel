@@ -63,11 +63,13 @@ st.set_page_config(layout="wide")
 st.title("Funnel Visualizer")
 
 # Upload Excel file
-uploaded_file = st.file_uploader("Upload your Excel file", type=["xlsx"])
-if uploaded_file:
-    df = pd.read_excel(uploaded_file, sheet_name=0)
-    pivot_df = df.pivot_table(index='ST_Program', columns='LeadStatus', values='GroupTotal', aggfunc='sum').fillna(0)
+#uploaded_file = st.file_uploader("Upload your Excel file", type=["xlsx"])
+#if uploaded_file:
+#    df = pd.read_excel(uploaded_file, sheet_name=0)
+#    pivot_df = df.pivot_table(index='ST_Program', columns='LeadStatus', values='GroupTotal', aggfunc='sum').fillna(0)
 
+if True:
+    pivot_df = load_the_datafile()
     # Funnel stage order
     stages = [
         "PRE_EVAL_inclusive", "MID_EVAL_inclusive", "MQL_inclusive",
