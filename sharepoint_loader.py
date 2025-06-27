@@ -58,7 +58,7 @@ def load_datafile(site_url: str,
 def load_the_datafile() -> pd.DataFrame:
     SITE_URL      = os.getenv("SP_SITE_URL")
     RELATIVE_URL  = os.getenv("SP_RELATIVE_URL")
-         = os.getenv("AZURE_CLIENT_ID")
+    CLIENT_ID     = os.getenv("AZURE_CLIENT_ID")
     CLIENT_SECRET = os.getenv("AZURE_CLIENT_SECRET")
 
     missing = [name for name, val in {
