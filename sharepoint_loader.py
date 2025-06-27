@@ -11,6 +11,7 @@ import os
 import pandas as pd
 from office365.runtime.auth.client_credential import ClientCredential
 from office365.sharepoint.client_context import ClientContext
+from office365.sharepoint.client_context import File
 
 def load_datafile(site_url: str,
                   relative_url: str,
@@ -37,7 +38,8 @@ def load_datafile(site_url: str,
     ctx = ClientContext(site_url).with_credentials(creds)
 
     # Download file into memory
-    response = ctx.web.get_file_by_server_relative_url(relative_url).download().execute_query()
+    # response = ctx.web.get_file_by_server_relative_url(relative_url).download().execute_query()
+    response = File.open_binary(ctx, relative_url)
 
     # Read into DataFrame
     df = pd.read_excel(io.BytesIO(response.content), sheet_name=0)
