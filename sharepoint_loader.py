@@ -33,9 +33,7 @@ def acquire_token_device_flow(client_id: str,
     if accounts:
         result = app.acquire_token_silent(scope, account=accounts[0])
     # Interactive device code flow if silent fails
-
-
-    if not result:
+    if not result:
         flow = app.initiate_device_flow(scopes=scope)
         if "user_code" not in flow:
             raise ValueError(f"Failed to start device flow: {flow}")
