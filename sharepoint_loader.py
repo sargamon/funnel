@@ -11,7 +11,8 @@ import os
 import pandas as pd
 from office365.runtime.auth.client_credential import ClientCredential
 from office365.sharepoint.client_context import ClientContext
-from office365.sharepoint.client_context import File
+from office365.sharepoint.files.file import File
+
 
 def load_datafile(site_url: str,
                   relative_url: str,
