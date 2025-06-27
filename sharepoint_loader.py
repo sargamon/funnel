@@ -37,7 +37,7 @@ def acquire_token_device_flow(client_id: str,
         flow = app.initiate_device_flow(scopes=scope)
         if "user_code" not in flow:
             raise ValueError(f"Failed to start device flow: {flow}")
-        st.info(flow["message"])  # Show login instructions in Streamlit
+        st.info(flow["message"])
         result = app.acquire_token_by_device_flow(flow)
 
 
