@@ -33,12 +33,15 @@ def acquire_token_device_flow(client_id: str,
     if accounts:
         result = app.acquire_token_silent(scope, account=accounts[0])
     # Interactive device code flow if silent fails
-    if not result:
-        flow = app.initiate_device_flow(scopes=scope)
-        if "user_code" not in flow:
-            raise ValueError(f"Failed to start device flow: {flow}")
-        print(flow["message"])  # instruct user to authenticate
-        result = app.acquire_token_by_device_flow(flow)
+
+
+    if not result:
+        flow = app.initiate_device_flow(scopes=scope)
+        if "user_code" not in flow:
+            raise ValueError(f"Failed to start device flow: {flow}")
+        st.info(flow["message"])  # Show login instructions in Streamlit
+        result = app.acquire_token_by_device_flow(flow)
+
 
     if "access_token" not in result:
         raise Exception(f"Could not acquire token: {result.get('error_description')}")
