@@ -3,3 +3,4 @@ pandas
 matplotlib
 openpyxl
 office365-rest-python-client
+msal
