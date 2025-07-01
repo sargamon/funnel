@@ -1,6 +1,9 @@
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
+import matplotlib.patches as patches
+import matplotlib.cm as cm
+import matplotlib.colors as mcolors
 
 def rainbow_color(x):
     """
