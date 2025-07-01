@@ -45,7 +45,7 @@ def draw_funnel(stage_names, counts, title="Funnel"):
 
         ax.add_patch(polygon)
 
-        ax.text(5, y - height / 2, f"{stage_names[i]}: {counts[i]:,}", 
+        ax.text(5, y - height / 2, f"{stage_names[i]}: {int(counts[i]):,}", 
                 ha='center', va='center', fontsize=9)
 
         if i > 0 and counts[i-1] > 0:
